@@ -6,28 +6,22 @@ import java.util.*;
 // (vertices,weight)
 public class Weighted_Graph {
     int v;
-    ArrayList<ArrayList<HashMap<Integer, Integer> > > adj;
+    ArrayList<HashMap<Integer, Integer> >  adj;
     Weighted_Graph(int v)
     {
         this.v = v;
         this.adj = new ArrayList<>();
 
         for (int i = 0; i < v; i++) {
-            this.adj.add(new ArrayList<>());
+            this.adj.add(new HashMap<>());
         }
     }
     // Function to add an Edge
     void addEdge(int u, int v, int weight)
     {
-        this.adj.get(u).add(new HashMap<>());
-        this.adj.get(u)
-            .get(this.adj.get(u).size() - 1)
-            .put(v, weight);
+        this.adj.get(u).put(v, weight);
 
-        this.adj.get(v).add(new HashMap<>());
-        this.adj.get(v)
-            .get(this.adj.get(v).size() - 1)
-            .put(u, weight);
+        this.adj.get(v).put(u, weight);
     }
 
     // Function for printing the whole graph
@@ -39,25 +33,19 @@ public class Weighted_Graph {
     void printGraph()
     {
         for (int i = 0; i < this.v; i++) {
-            System.out.println("\nNode " + i
-                               + " makes an edge with ");
-            for (HashMap<Integer, Integer> j :
-                 this.adj.get(i)) {
-                j.entrySet().forEach(
-                    e
-                    -> System.out.println(
-                        "\tNode " + e.getKey()
-                        + " with edge weight "
-                        + e.getValue() + " "));
-            }
-        }
+    System.out.println("\nNode " + i + " makes an edge with:");
+    for (Map.Entry<Integer, Integer> entry : this.adj.get(i).entrySet()) {
+        System.out.println("\tNode " + entry.getKey() + " with edge weight " + entry.getValue());
+    }
+}
+
     }
     // Main method
     public static void main(String[] args)
     {
-        int v = 5;
+        int v = 5;//how many nodes there are 
         Weighted_Graph obj = new Weighted_Graph(v);
-        obj.addEdge(0, 1, 10);
+        obj.addEdge(0, 1, 10);  // node a links to node b with a weight of c
         obj.addEdge(0, 4, 20);
         obj.addEdge(1, 2, 30);
         obj.addEdge(1, 3, 40);
@@ -67,4 +55,3 @@ public class Weighted_Graph {
         obj.printGraph();
     }
 }
-// This code is submitted by Abhishek_Manna_HETC
