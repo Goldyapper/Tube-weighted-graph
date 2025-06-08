@@ -30,10 +30,11 @@ public class Weighted_Graph {
         }
     }
 
-    void dijkstra(int src) {
+    void dijkstra(int src, int dest) {
         int[] dist = new int[v];
         Arrays.fill(dist, Integer.MAX_VALUE);
         dist[src] = 0;
+
         PriorityQueue<int[]> pq = new PriorityQueue<>(Comparator.comparingInt(a -> a[1]));
         pq.add(new int[]{src, 0});
 
@@ -41,6 +42,11 @@ public class Weighted_Graph {
             int[] current = pq.poll();
             int u = current[0];
             int d = current[1];
+
+            if (u == dest){
+                System.out.println("\nShortest distance from node " + src + " to node " + dest + " is: " + d);
+                return;
+            }
 
             if (d > dist[u]) continue;
 
@@ -82,8 +88,11 @@ public class Weighted_Graph {
         System.out.print("\nEnter the source node (0 to " + (v - 1) + "): ");
         int src = scanner.nextInt();
 
-        if (src >= 0 && src < v) {
-            obj.dijkstra(src);
+        System.out.print("Enter the destination node (0 to " + (v - 1) + "): ");
+        int dest = scanner.nextInt();
+
+        if (src >= 0 && src < v && dest >= 0 && dest < v) {
+            obj.dijkstra(src,dest);
         } else {
             System.out.println("Invalid source node.");
         }
