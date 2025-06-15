@@ -71,10 +71,12 @@ public class Weighted_Graph {
 
         // Print result
         System.out.println("\nShortest distance from node " + src + " to node " + dest + " is: " + dist[dest]);
-        System.out.print("Path: ");
-        for (int i = 0; i < path.size(); i++) {
-            System.out.print(path.get(i));
-            if (i != path.size() - 1) System.out.print(" -> ");
+        System.out.println("Path: ");
+        for (int i = 0; i < path.size() -1; i++) {
+            int from = path.get(i);
+            int to = path.get(i+1);
+            int weight = adj.get(from).get(to);
+            System.out.println(from + " -> " + to +" (weight " + weight + ")");
         }
         System.out.println();
     }
