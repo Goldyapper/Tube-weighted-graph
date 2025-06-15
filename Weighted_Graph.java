@@ -1,6 +1,5 @@
 import java.util.*;
 
-
 // Creation of Adjacency List
 // The adjacency List consist of an ArrayList which holds the HashMap of
 // (vertices,weight)
@@ -32,7 +31,9 @@ public class Weighted_Graph {
 
     void dijkstra(int src, int dest) {
         int[] dist = new int[v];
+        int[] prev = new int[v];
         Arrays.fill(dist, Integer.MAX_VALUE);
+        Arrays.fill(prev, -1);
         dist[src] = 0;
 
         PriorityQueue<int[]> pq = new PriorityQueue<>(Comparator.comparingInt(a -> a[1]));
@@ -43,11 +44,6 @@ public class Weighted_Graph {
             int u = current[0];
             int d = current[1];
 
-            if (u == dest){
-                System.out.println("\nShortest distance from node " + src + " to node " + dest + " is: " + d);
-                return;
-            }
-
             if (d > dist[u]) continue;
 
             for (Map.Entry<Integer, Integer> neighbor : adj.get(u).entrySet()) {
@@ -55,15 +51,32 @@ public class Weighted_Graph {
                 int weight = neighbor.getValue();
                 if (dist[u] + weight < dist[v]) {
                     dist[v] = dist[u] + weight;
+                    prev[v] = u;
                     pq.add(new int[]{v, dist[v]});
                 }
             }
         }
-        
-        System.out.println("\nShortest distances from node " + src + ":");
-        for (int i = 0; i < v; i++) {
-            System.out.println("To node " + i + " -> " + (dist[i] == Integer.MAX_VALUE ? "∞" : dist[i]));
+            // If destination is unreachable
+        if (dist[dest] == Integer.MAX_VALUE) {
+            System.out.println("\nThere is no path from node " + src + " to node " + dest + ".");
+            return;
         }
+            
+        // Reconstruct path
+        List<Integer> path = new ArrayList<>();
+        for (int at = dest; at != -1; at = prev[at]) {
+            path.add(at);
+        }
+        Collections.reverse(path);
+
+        // Print result
+        System.out.println("\nShortest distance from node " + src + " to node " + dest + " is: " + dist[dest]);
+        System.out.print("Path: ");
+        for (int i = 0; i < path.size(); i++) {
+            System.out.print(path.get(i));
+            if (i != path.size() - 1) System.out.print(" -> ");
+        }
+        System.out.println();
     }
     // Main method
     public static void main(String[] args)
