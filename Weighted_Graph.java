@@ -85,7 +85,7 @@ public class Weighted_Graph {
     {
         
         Scanner scanner = new Scanner(System.in);
-        int v = 5;//how many nodes there are 
+        int v = 6;//how many nodes there are 
         Weighted_Graph obj = new Weighted_Graph(v);
         
         
@@ -97,6 +97,8 @@ public class Weighted_Graph {
         obj.addEdge(1, 4, 50);
         obj.addEdge(2, 3, 60);
         obj.addEdge(3, 4, 70);
+        obj.addEdge(3, 5, 20);
+        obj.addEdge(4, 5, 80);
         
         obj.printGraph();
         while (true) {
