@@ -99,9 +99,11 @@ public class Weighted_Graph {
         obj.addEdge(3, 4, 70);
         
         obj.printGraph();
+        while (true) {
         // User input for source node
-        System.out.print("\nEnter the source node (0 to " + (v - 1) + "): ");
+        System.out.print("\nEnter the source node (0 to " + (v - 1) + ", or -1 to quit): ");
         int src = scanner.nextInt();
+        if (src == -1) break;
 
         System.out.print("Enter the destination node (0 to " + (v - 1) + "): ");
         int dest = scanner.nextInt();
@@ -109,9 +111,9 @@ public class Weighted_Graph {
         if (src >= 0 && src < v && dest >= 0 && dest < v) {
             obj.dijkstra(src,dest);
         } else {
-            System.out.println("Invalid source node.");
+            System.out.println("Invalid source or destination node.");
         }
-
+        }
         scanner.close();
     }
 }
