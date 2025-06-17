@@ -38,9 +38,13 @@ public class Weighted_Graph {
     // Function for printing the whole graph
     void printGraph(){
         for (int i = 0; i < this.v; i++) {
-            System.out.println("\nNode " + i + " makes an edge with:");
+            String fromStation = indexToName.getOrDefault(i, "Node " + i);
+            System.out.println("\n " + fromStation + " makes an edge with:");
+            
+            
             for (Map.Entry<Integer, Integer> entry : this.adj.get(i).entrySet()) {
-                System.out.println("\tNode " + entry.getKey() + " with edge weight " + entry.getValue());
+                            String toStation = indexToName.getOrDefault(entry.getKey(), "Node " + entry.getKey());
+                System.out.println("\t " + toStation + " with travel time " + entry.getValue());
             }
         }
     }
