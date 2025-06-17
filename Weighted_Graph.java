@@ -139,19 +139,11 @@ public class Weighted_Graph {
     {
         
         Scanner scanner = new Scanner(System.in);
-        // Example mapping of names to indices
-        Map<String, Integer> nameToIndex = new HashMap<>();
-        nameToIndex.put("a", 0);
-        nameToIndex.put("b", 1);
-        nameToIndex.put("c", 2);
-        nameToIndex.put("d", 3);
-        nameToIndex.put("e", 4);
-        nameToIndex.put("f", 5);
-        // Add more station mappings...
+        Weighted_Graph obj = new Weighted_Graph(6);
+        String[] stations = {"A", "B", "C", "D", "E", "F"};
+        obj.addStationNames(stations);
+        obj.loadEdgesFromCSV("edges.csv", obj.nameToIndex);
 
-        Weighted_Graph obj = new Weighted_Graph(nameToIndex.size());
-        obj.loadEdgesFromCSV("edges.csv", nameToIndex);
-                
                 
 
         obj.printGraph();
