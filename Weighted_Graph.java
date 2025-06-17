@@ -20,6 +20,33 @@ public class Weighted_Graph {
             this.adj.add(new HashMap<>());
         }
     }
+
+    void loadEdgesFromCSV(String filename, Map<String, Integer> nameToIndex) {
+        try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+            String line;
+            br.readLine(); // skip header
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length != 3) continue;
+
+                String src = parts[0].trim().toLowerCase();
+                String dest = parts[1].trim().toLowerCase();
+                int weight = Integer.parseInt(parts[2].trim());
+
+                Integer u = nameToIndex.get(src);
+                Integer v = nameToIndex.get(dest);
+
+                if (u != null && v != null) {
+                    this.addEdge(u, v, weight);
+                } else {
+                    System.out.println("Skipping invalid edge: " + src + " -> " + dest);
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading CSV file: " + e.getMessage());
+        }
+    }
+
     void addStationNames(String[] names) {
         for (int i = 0; i < names.length; i++) {
             nameToIndex.put(names[i].toLowerCase(), i);
@@ -38,6 +65,10 @@ public class Weighted_Graph {
         adj.get(u).put(v, weight);
         adj.get(v).put(u, weight);
     }
+    void addEdge(int u, int v, int weight) {
+        this.adj.get(u).put(v, weight);
+        this.adj.get(v).put(u, weight);  // for undirected graph
+}
     // Function for printing the whole graph
     void printGraph(){
         for (int i = 0; i < this.v; i++) {
@@ -108,24 +139,21 @@ public class Weighted_Graph {
     {
         
         Scanner scanner = new Scanner(System.in);
-        int v = 6;//how many nodes there are 
-        Weighted_Graph obj = new Weighted_Graph(v);
-        String[] stations = {"A", "B", "C", "D", "E", "F"};
-        obj.addStationNames(stations);
+        // Example mapping of names to indices
+        Map<String, Integer> nameToIndex = new HashMap<>();
+        nameToIndex.put("a", 0);
+        nameToIndex.put("b", 1);
+        nameToIndex.put("c", 2);
+        nameToIndex.put("d", 3);
+        nameToIndex.put("e", 4);
+        nameToIndex.put("f", 5);
+        // Add more station mappings...
 
-        
-        
-        //add edges
-        obj.addEdge("A", "B", 10);  // node a links to node b with a weight of c
-        obj.addEdge("A", "E", 20);
-        obj.addEdge("B", "C", 30);
-        obj.addEdge("B", "D", 40);
-        obj.addEdge("B", "E", 50);
-        obj.addEdge("C", "D", 60);
-        obj.addEdge("D", "E", 70);
-        obj.addEdge("D", "F", 20);
-        obj.addEdge("E", "F", 80);
-        
+        Weighted_Graph obj = new Weighted_Graph(nameToIndex.size());
+        obj.loadEdgesFromCSV("edges.csv", nameToIndex);
+                
+                
+
         obj.printGraph();
         while (true) {
             // User input for source node
