@@ -125,22 +125,22 @@ public class Weighted_Graph {
         
         obj.printGraph();
         while (true) {
-        // User input for source node
-        System.out.print("\nEnter the source station name (or 'exit' to quit): ");
-        String srcName = scanner.nextLine().trim();
-        if (srcName.equalsIgnoreCase("exit")) break;
+            // User input for source node
+            System.out.print("\nEnter the source station name (or 'exit' to quit): ");
+            String srcName = scanner.nextLine().trim();
+            if (srcName.equalsIgnoreCase("exit")) break;
 
-        System.out.print("Enter the destination station name: ");
-        String destName = scanner.nextLine().trim();
+            System.out.print("Enter the destination station name: ");
+            String destName = scanner.nextLine().trim();
 
-        Integer src = obj.nameToIndex.get(srcName.toLowerCase());
-        Integer dest = obj.nameToIndex.get(destName.toLowerCase());
+            Integer src = obj.nameToIndex.get(srcName.toLowerCase());
+            Integer dest = obj.nameToIndex.get(destName.toLowerCase());
 
-        if (src >= 0 && src < v && dest >= 0 && dest < v) {
-            obj.dijkstra(src,dest);
-        } else {
-            System.out.println("Invalid source or destination node.");
-        }
+            if (src == null || dest == null) {
+                System.out.println("Invalid source or destination node.");
+                continue;
+            }
+            obj.dijkstra(src, dest);
         }
         scanner.close();
     }
