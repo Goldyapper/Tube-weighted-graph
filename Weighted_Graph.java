@@ -6,6 +6,9 @@ import java.util.*;
 public class Weighted_Graph {
     int v;
     ArrayList<HashMap<Integer, Integer> >  adj;
+    Map<String, Integer> nameToIndex = new HashMap<>();
+    Map<Integer, String> indexToName = new HashMap<>();
+
     Weighted_Graph(int v) {
         this.v = v;
         this.adj = new ArrayList<>();
@@ -14,10 +17,23 @@ public class Weighted_Graph {
             this.adj.add(new HashMap<>());
         }
     }
+    void addStationNames(String[] names) {
+        for (int i = 0; i < names.length; i++) {
+            nameToIndex.put(names[i].toLowerCase(), i);
+            indexToName.put(i, names[i]);
+        }
+    }
     // Function to add an Edge
-    void addEdge(int u, int v, int weight){
-        this.adj.get(u).put(v, weight);
-        this.adj.get(v).put(u, weight);
+    void addEdge(String Station_A, String Station_B, int weight){
+        Integer u = nameToIndex.get(Station_A.toLowerCase());
+        Integer v = nameToIndex.get(Station_B.toLowerCase());
+
+        if (u == null || v == null) {
+        System.out.println("Error: One or both station names are invalid."    + Station_A + ", " + Station_B);
+        return;
+        }
+        adj.get(u).put(v, weight);
+        adj.get(v).put(u, weight);
     }
     // Function for printing the whole graph
     void printGraph(){
@@ -76,7 +92,7 @@ public class Weighted_Graph {
             int from = path.get(i);
             int to = path.get(i+1);
             int weight = adj.get(from).get(to);
-            System.out.println(from + " -> " + to +" (weight " + weight + ")");
+            System.out.println(indexToName.get(from) + " -> " + indexToName.get(to)+" (weight " + weight + ")");
         }
         System.out.println();
     }
@@ -87,28 +103,34 @@ public class Weighted_Graph {
         Scanner scanner = new Scanner(System.in);
         int v = 6;//how many nodes there are 
         Weighted_Graph obj = new Weighted_Graph(v);
+        String[] stations = {"A", "B", "C", "D", "E", "F"};
+        obj.addStationNames(stations);
+
         
         
         //add edges
-        obj.addEdge(0, 1, 10);  // node a links to node b with a weight of c
-        obj.addEdge(0, 4, 20);
-        obj.addEdge(1, 2, 30);
-        obj.addEdge(1, 3, 40);
-        obj.addEdge(1, 4, 50);
-        obj.addEdge(2, 3, 60);
-        obj.addEdge(3, 4, 70);
-        obj.addEdge(3, 5, 20);
-        obj.addEdge(4, 5, 80);
+        obj.addEdge("A", "B", 10);  // node a links to node b with a weight of c
+        obj.addEdge("A", "E", 20);
+        obj.addEdge("B", "C", 30);
+        obj.addEdge("B", "D", 40);
+        obj.addEdge("B", "E", 50);
+        obj.addEdge("C", "D", 60);
+        obj.addEdge("D", "E", 70);
+        obj.addEdge("D", "F", 20);
+        obj.addEdge("E", "F", 80);
         
         obj.printGraph();
         while (true) {
         // User input for source node
-        System.out.print("\nEnter the source node (0 to " + (v - 1) + ", or -1 to quit): ");
-        int src = scanner.nextInt();
-        if (src == -1) break;
+        System.out.print("\nEnter the source station name (or 'exit' to quit): ");
+        String srcName = scanner.nextLine().trim();
+        if (srcName.equalsIgnoreCase("exit")) break;
 
-        System.out.print("Enter the destination node (0 to " + (v - 1) + "): ");
-        int dest = scanner.nextInt();
+        System.out.print("Enter the destination station name: ");
+        String destName = scanner.nextLine().trim();
+
+        Integer src = obj.nameToIndex.get(srcName.toLowerCase());
+        Integer dest = obj.nameToIndex.get(destName.toLowerCase());
 
         if (src >= 0 && src < v && dest >= 0 && dest < v) {
             obj.dijkstra(src,dest);
