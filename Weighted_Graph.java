@@ -149,6 +149,7 @@ public class Weighted_Graph {
         obj.printGraph();
         while (true) {
             // User input for source node
+            System.out.print("\nStations that you can choose from are: " + String.join(", ",stations));
             System.out.print("\nEnter the source station name (or 'exit' to quit): ");
             String srcName = scanner.nextLine().trim();
             if (srcName.equalsIgnoreCase("exit")) break;
