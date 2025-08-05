@@ -1,4 +1,27 @@
 source,destination,weight
 Stanmore, Canons Park,1 
-Canons Park, Queensbury,2
+Canons Park, Queensbury, 2
 Queensbury, Kingsbury, 3
+Kingsbury, Wembley Park, 4  
+Wembley Park, Neasden, 3
+Neasden, Dollis Hill, 1
+Dollis Hill, Wilesden Green, 3
+Wilesden Green, Kilburn, 1
+Kilburn, West Hampstead, 2
+West Hampstead, Finchley Road, 2    
+Finchley Road, Swiss Cottage, 1
+Swiss Cottage, St. John's Wood, 2
+St. John's Wood, Baker Street, 2
+Baker Street, Bond Street, 3
+Bond Street, Green Park, 2
+Green Park, Westminster, 2
+Westminster, Waterloo, 2
+Waterloo, Southwark, 1
+Southwark, London Bridge, 2
+London Bridge, Bermondsey, 2
+Bermondsey, Canada Water, 2
+Canada Water, Canary Wharf, 2
+Canary Wharf, North Greenwich, 3
+North Greenwich, Canning Town, 2
+Canning Town, West Ham, 3
+West Ham, Stratford, 4

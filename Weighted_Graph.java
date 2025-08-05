@@ -79,7 +79,7 @@ public class Weighted_Graph {
             for (Map.Entry<Integer, Integer> entry : this.adj.get(i).entrySet())
                 {
                 String toStation = indexToName.getOrDefault(entry.getKey(), "Node " + entry.getKey());
-                System.out.println("\t " + toStation + " with travel time " + entry.getValue());
+                System.out.println("\t " + toStation + " with travel time " + entry.getValue()+ " mins");
                 }
         }
     }
@@ -151,8 +151,9 @@ public class Weighted_Graph {
     {
         
         Scanner scanner = new Scanner(System.in);
-        Weighted_Graph obj = new Weighted_Graph(6);
-        String[] stations = loadStationNamesFromFile("tubestations.txt");        obj.addStationNames(stations);
+        String[] stations = loadStationNamesFromFile("tubestations.txt");
+        Weighted_Graph obj = new Weighted_Graph(stations.length);
+        obj.addStationNames(stations);
         obj.loadEdgesFromCSV("edges.csv");
 
                 
@@ -160,7 +161,7 @@ public class Weighted_Graph {
         obj.printGraph();
         while (true) {
             // User input for source node
-            System.out.print("\nStations that you can choose from are: " + String.join(", ",stations));
+            System.out.print("\nStations that you can choose from are only those on the Jubilee line");
             System.out.print("\nEnter the source station name (or 'exit' to quit): ");
             String srcName = scanner.nextLine().trim();
             if (srcName.equalsIgnoreCase("exit")) break;
