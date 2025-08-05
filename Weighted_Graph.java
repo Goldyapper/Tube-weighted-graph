@@ -73,7 +73,7 @@ public class Weighted_Graph {
     void printGraph(){
         for (int i = 0; i < this.v; i++) {
             String fromStation = indexToName.getOrDefault(i, "Node " + i);
-            System.out.println("\n " + fromStation + " makes an edge with:");
+            System.out.println("\n " + fromStation + " connects with:");
             
             
             for (Map.Entry<Integer, Integer> entry : this.adj.get(i).entrySet())
@@ -124,7 +124,7 @@ public class Weighted_Graph {
         }
             // If destination is unreachable
         if (dist[dest] == Integer.MAX_VALUE) {
-            System.out.println("\nThere is no path from node " + src + " to node " + dest + ".");
+            System.out.println("\nThere is no path from " + indexToName.get(src) + " to " + indexToName.get(dest) + ".");
             return;
         }
             
@@ -136,8 +136,9 @@ public class Weighted_Graph {
         Collections.reverse(path);
 
         // Print result
-        System.out.println("\nShortest distance from node " + src + " to node " + dest + " is: " + dist[dest]);
-        System.out.println("Path: ");
+        System.out.println("\nShortest distance from " + indexToName.get(src) + " to " + indexToName.get(dest) + " is: " + dist[dest] + " mins");
+        System.out.println("");
+        System.out.println("Path:");
         for (int i = 0; i < path.size() -1; i++) {
             int from = path.get(i);
             int to = path.get(i+1);
@@ -161,7 +162,7 @@ public class Weighted_Graph {
         obj.printGraph();
         while (true) {
             // User input for source node
-            System.out.print("\nStations that you can choose from are only those on the Jubilee line");
+            System.out.print("\nStations that you can choose from are only those on the following lines: Jubilee, Metropolitian");
             System.out.print("\nEnter the source station name (or 'exit' to quit): ");
             String srcName = scanner.nextLine().trim();
             if (srcName.equalsIgnoreCase("exit")) break;
