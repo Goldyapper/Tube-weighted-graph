@@ -142,7 +142,7 @@ public class Weighted_Graph {
             int from = path.get(i);
             int to = path.get(i+1);
             int weight = adj.get(from).get(to);
-            System.out.println(indexToName.get(from) + " -> " + indexToName.get(to)+" (weight " + weight + ")");
+            System.out.println(indexToName.get(from) + " -> " + indexToName.get(to)+" ("+ weight +" mins)");
         }
         System.out.println();
     }
