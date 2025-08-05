@@ -21,7 +21,7 @@ public class Weighted_Graph {
         }
     }
 
-    void loadEdgesFromCSV(String filename, Map<String, Integer> nameToIndex) {
+    void loadEdgesFromCSV(String filename) {
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             String line;
             br.readLine(); // skip header
@@ -76,13 +76,25 @@ public class Weighted_Graph {
             System.out.println("\n " + fromStation + " makes an edge with:");
             
             
-            for (Map.Entry<Integer, Integer> entry : this.adj.get(i).entrySet()) {
-                            String toStation = indexToName.getOrDefault(entry.getKey(), "Node " + entry.getKey());
+            for (Map.Entry<Integer, Integer> entry : this.adj.get(i).entrySet())
+                {
+                String toStation = indexToName.getOrDefault(entry.getKey(), "Node " + entry.getKey());
                 System.out.println("\t " + toStation + " with travel time " + entry.getValue());
-            }
+                }
         }
     }
-
+    static String[] loadStationNamesFromFile(String filename) {
+        List<String> stationList = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                stationList.add(line.trim());
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading station names: " + e.getMessage());
+        }
+        return stationList.toArray(new String[0]);
+    }
     void dijkstra(int src, int dest) {
         int[] dist = new int[v];
         int[] prev = new int[v];
@@ -140,9 +152,8 @@ public class Weighted_Graph {
         
         Scanner scanner = new Scanner(System.in);
         Weighted_Graph obj = new Weighted_Graph(6);
-        String[] stations = {"A", "B", "C", "D", "E", "F"};
-        obj.addStationNames(stations);
-        obj.loadEdgesFromCSV("edges.csv", obj.nameToIndex);
+        String[] stations = loadStationNamesFromFile("tubestations.txt");        obj.addStationNames(stations);
+        obj.loadEdgesFromCSV("edges.csv");
 
                 
 

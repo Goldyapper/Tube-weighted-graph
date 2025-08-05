@@ -1,9 +1,4 @@
 source,destination,weight
-A, B, 10
-A, E, 29
-B, C, 30
-B, E, 50
-C, D, 60
-D, E, 70
-D, F, 20
-E, F, 80
+Stanmore, Canons Park,1 
+Canons Park, Queensbury,2
+Queensbury, Kingsbury, 3
