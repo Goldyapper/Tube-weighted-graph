@@ -209,7 +209,13 @@ public class Weighted_Graph {
             }
         }
     }
-
+    void printAllDistancesFromAllStations() {
+        for (int i = 0; i < v; i++) {
+            String stationName = indexToName.get(i);
+            System.out.println("\n=== Distances from " + stationName + " ===");
+            printAllDistancesFrom(stationName);
+        }
+    }
 
     // Main method
     public static void main(String[] args)
@@ -220,10 +226,10 @@ public class Weighted_Graph {
         Weighted_Graph obj = new Weighted_Graph(stations.length);
         obj.addStationNames(stations);
         obj.loadEdgesFromCSV("edges.csv");
+        
+        obj.printAllDistancesFromAllStations();    
+        //obj.printGraph();
 
-                
-
-        obj.printGraph();
         while (true) {
             // User input for source node
             System.out.print("\nEnter a station to see shortest paths to all others or 'skip' to skip: ");
