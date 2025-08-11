@@ -147,6 +147,49 @@ public class Weighted_Graph {
         }
         System.out.println();
     }
+    void printAllDistancesFrom(String stationName) {
+        Integer src = nameToIndex.get(stationName.toLowerCase());
+        if (src == null) {
+            System.out.println("Error: Station not found - " + stationName);
+            return;
+        }
+
+        int[] dist = new int[v];
+        Arrays.fill(dist, Integer.MAX_VALUE);
+        dist[src] = 0;
+
+        PriorityQueue<int[]> pq = new PriorityQueue<>(Comparator.comparingInt(a -> a[1]));
+        pq.add(new int[]{src, 0});
+
+        while (!pq.isEmpty()) {
+            int[] current = pq.poll();
+            int u = current[0];
+            int d = current[1];
+
+            if (d > dist[u]) continue;
+
+            for (Map.Entry<Integer, Integer> neighbor : adj.get(u).entrySet()) {
+                int v = neighbor.getKey();
+                int weight = neighbor.getValue();
+                if (dist[u] + weight < dist[v]) {
+                    dist[v] = dist[u] + weight;
+                    pq.add(new int[]{v, dist[v]});
+                }
+            }
+        }
+
+        System.out.println("\nDistances from " + indexToName.get(src) + ":");
+        for (int i = 0; i < v; i++) {
+            if (i == src) continue;
+            String destName = indexToName.get(i);
+            if (dist[i] == Integer.MAX_VALUE) {
+                System.out.println(destName + ": Unreachable");
+            } else {
+                System.out.println(destName + ": " + dist[i] + " mins");
+            }
+        }
+    }
+
     // Main method
     public static void main(String[] args)
     {
@@ -162,6 +205,11 @@ public class Weighted_Graph {
         obj.printGraph();
         while (true) {
             // User input for source node
+            System.out.print("\nEnter a station to see distances to all others: ");
+            
+            String station = scanner.nextLine().trim();
+            obj.printAllDistancesFrom(station);
+
             System.out.print("\nStations that you can choose from are only those on the following lines: Jubilee, Metropolitian");
             System.out.print("\nEnter the source station name (or 'exit' to quit): ");
             String srcName = scanner.nextLine().trim();
