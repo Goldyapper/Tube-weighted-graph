@@ -177,18 +177,39 @@ public class Weighted_Graph {
                 }
             }
         }
+         // Collect results for sorting
+        List<int[]> reachable = new ArrayList<>();
+        List<Integer> unreachable = new ArrayList<>();
 
-        System.out.println("\nDistances from " + indexToName.get(src) + ":");
         for (int i = 0; i < v; i++) {
             if (i == src) continue;
-            String destName = indexToName.get(i);
-            if (dist[i] == Integer.MAX_VALUE) {
-                System.out.println(destName + ": Unreachable");
+            if (dist[i] != Integer.MAX_VALUE) {
+                reachable.add(new int[]{i, dist[i]});
             } else {
-                System.out.println(destName + ": " + dist[i] + " mins");
+                unreachable.add(i);
+            }
+        }
+
+        // Sort by travel time
+        reachable.sort(Comparator.comparingInt(a -> a[1]));
+        System.out.println("\nShortest travel times from " + indexToName.get(src) + ":");
+         // Print reachable stations
+        for (int[] entry : reachable) {
+            int dest = entry[0];
+            int time = entry[1];
+
+            System.out.println(indexToName.get(dest) + ": " + time + " mins");
+        }
+
+        // Print unreachable stations
+        if (!unreachable.isEmpty()) {
+            System.out.println("\nUnreachable stations:");
+            for (int dest : unreachable) {
+                System.out.println(indexToName.get(dest) + ": Unreachable");
             }
         }
     }
+
 
     // Main method
     public static void main(String[] args)
@@ -205,11 +226,13 @@ public class Weighted_Graph {
         obj.printGraph();
         while (true) {
             // User input for source node
-            System.out.print("\nEnter a station to see distances to all others: ");
-            
-            String station = scanner.nextLine().trim();
-            obj.printAllDistancesFrom(station);
-
+            System.out.print("\nEnter a station to see shortest paths to all others or 'skip' to skip: ");
+            String stationName = scanner.nextLine().trim();
+            if (stationName.equalsIgnoreCase("skip")) {
+                // skip straight to normal path finding
+            } else {
+                obj.printAllDistancesFrom(stationName);
+            }
             System.out.print("\nStations that you can choose from are only those on the following lines: Jubilee, Metropolitian");
             System.out.print("\nEnter the source station name (or 'exit' to quit): ");
             String srcName = scanner.nextLine().trim();
