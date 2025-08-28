@@ -239,7 +239,7 @@ public class Weighted_Graph {
             } else {
                 obj.printAllDistancesFrom(stationName);
             }
-            System.out.print("\nStations that you can choose from are only those on the following lines: Jubilee, Metropolitian");
+            System.out.print("\nStations that you can choose from are only those on the following lines: Jubilee, Metropolitian, Bakerloo");
             System.out.print("\nEnter the source station name (or 'exit' to quit): ");
             String srcName = scanner.nextLine().trim();
             if (srcName.equalsIgnoreCase("exit")) break;
