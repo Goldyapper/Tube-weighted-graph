@@ -26,12 +26,26 @@ public class Weighted_Graph {
             String line;
             br.readLine(); // skip header
             while ((line = br.readLine()) != null) {
+                if (line.trim().isEmpty()) continue;  // skip blank lines
                 String[] parts = line.split(",");
-                if (parts.length != 3) continue;
+                if (parts.length != 3) continue;     // skip malformed lines
 
                 String src = parts[0].trim().toLowerCase();
                 String dest = parts[1].trim().toLowerCase();
-                int weight = Integer.parseInt(parts[2].trim());
+                String weightStr = parts[2].trim();
+                
+                if (weightStr.isEmpty()) {
+                    System.out.println("Skipping line with empty weight: " + line);
+                    continue;
+                }
+
+                int weight;
+                try {
+                    weight = Integer.parseInt(weightStr);
+                } catch (NumberFormatException e) {
+                    System.out.println("Skipping line with invalid weight: " + line);
+                    continue;
+                }
 
                 Integer u = nameToIndex.get(src);
                 Integer v = nameToIndex.get(dest);
@@ -239,7 +253,7 @@ public class Weighted_Graph {
             } else {
                 obj.printAllDistancesFrom(stationName);
             }
-            System.out.print("\nStations that you can choose from are only those on the following lines: Jubilee, Metropolitian, Bakerloo");
+            System.out.print("\nStations that you can choose from are only those on the following lines: Bakerloo, Central, Jubilee, Metropolitian");
             System.out.print("\nEnter the source station name (or 'exit' to quit): ");
             String srcName = scanner.nextLine().trim();
             if (srcName.equalsIgnoreCase("exit")) break;
