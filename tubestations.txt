@@ -145,3 +145,41 @@ South Kensington
 Gloucester Road
 High Street Kensington
 Bayswater
+Upminster
+Upminster Bridge
+Hornchurch
+Elm Park
+Dagenham East
+Dagenham Heathway
+Becontree
+Upney
+Barking
+East Ham
+Upton Park
+Plaistow
+Bromley-by-Bow
+Bow Road
+Stepney Green
+Whitechapel
+Aldgate East
+Earl's Court
+West Kensington
+Barons Court
+Ravenscourt Park
+Stamford Brook
+Turnham Green
+Chiswick Park
+Acton Town
+Ealing Common
+West Brompton
+Fulham Broadway
+Parsons Green
+Putney Bridge
+East Putney
+Southfields
+Wimbledon Park
+Wimbledon
+Gunnersbury
+Kew Gardens
+Richmond
+Kensington (Olympia)
