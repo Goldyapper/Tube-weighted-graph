@@ -241,7 +241,7 @@ public class Weighted_Graph {
         obj.addStationNames(stations);
         obj.loadEdgesFromCSV("edges.csv");
         
-        obj.printAllDistancesFromAllStations();    
+        //obj.printAllDistancesFromAllStations();    
         //obj.printGraph();
 
         while (true) {
@@ -253,7 +253,7 @@ public class Weighted_Graph {
             } else {
                 obj.printAllDistancesFrom(stationName);
             }
-            System.out.print("\nStations that you can choose from are only those on the following lines: Bakerloo, Central, Circle, Jubilee, Metropolitian");
+            System.out.print("\nStations that you can choose from are only those on the following lines: Bakerloo, Central, Circle, District, Jubilee, Metropolitian");
             System.out.print("\nEnter the source station name (or 'exit' to quit): ");
             String srcName = scanner.nextLine().trim();
             if (srcName.equalsIgnoreCase("exit")) break;
