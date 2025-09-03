@@ -28,11 +28,12 @@ public class Weighted_Graph {
             while ((line = br.readLine()) != null) {
                 if (line.trim().isEmpty()) continue;  // skip blank lines
                 String[] parts = line.split(",");
-                if (parts.length != 3) continue;     // skip malformed lines
+                if (parts.length != 4) continue;     // skip malformed lines
 
                 String src = parts[0].trim().toLowerCase();
                 String dest = parts[1].trim().toLowerCase();
                 String weightStr = parts[2].trim();
+                String connection = parts[4].trim().toLowerCase();
                 
                 if (weightStr.isEmpty()) {
                     System.out.println("Skipping line with empty weight: " + line);
