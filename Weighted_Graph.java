@@ -33,7 +33,7 @@ public class Weighted_Graph {
                 String src = parts[0].trim().toLowerCase();
                 String dest = parts[1].trim().toLowerCase();
                 String weightStr = parts[2].trim();
-                String connection = parts[4].trim().toLowerCase();
+                String connection = parts[3].trim().toLowerCase();
                 
                 if (weightStr.isEmpty()) {
                     System.out.println("Skipping line with empty weight: " + line);
@@ -254,7 +254,7 @@ public class Weighted_Graph {
             } else {
                 obj.printAllDistancesFrom(stationName);
             }
-            System.out.print("\nStations that you can choose from are only those on the following lines: Bakerloo, Central, Circle, District, Jubilee, Metropolitian");
+            //System.out.print("\nStations that you can choose from are only those on the following lines: Bakerloo, Central, Circle, District, Jubilee, Metropolitian");
             System.out.print("\nEnter the source station name (or 'exit' to quit): ");
             String srcName = scanner.nextLine().trim();
             if (srcName.equalsIgnoreCase("exit")) break;
