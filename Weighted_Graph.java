@@ -8,7 +8,7 @@ import java.io.IOException;
 // (vertices,weight)
 public class Weighted_Graph {
     int v;
-    ArrayList<HashMap<Integer, Integer> >  adj;
+    ArrayList<HashMap<Integer, Edge> >  adj;
     Map<String, Integer> nameToIndex = new HashMap<>();
     Map<Integer, String> indexToName = new HashMap<>();
 
@@ -20,6 +20,17 @@ public class Weighted_Graph {
             this.adj.add(new HashMap<>());
         }
     }
+
+    static class Edge {
+        int weight;
+        String line;
+
+        Edge(int weight, String line) {
+            this.weight = weight;
+            this.line = line;
+        }
+    }
+
 
     void loadEdgesFromCSV(String filename) {
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
@@ -33,7 +44,7 @@ public class Weighted_Graph {
                 String src = parts[0].trim().toLowerCase();
                 String dest = parts[1].trim().toLowerCase();
                 String weightStr = parts[2].trim();
-                String connection = parts[3].trim().toLowerCase();
+                String connection = parts[3].trim();
                 
                 if (weightStr.isEmpty()) {
                     System.out.println("Skipping line with empty weight: " + line);
@@ -52,7 +63,7 @@ public class Weighted_Graph {
                 Integer v = nameToIndex.get(dest);
 
                 if (u != null && v != null) {
-                    this.addEdge(u, v, weight);
+                    this.addEdge(u, v, weight,connection);
                 } else {
                     System.out.println("Skipping invalid edge: " + src + " -> " + dest);
                 }
@@ -69,7 +80,7 @@ public class Weighted_Graph {
         }
     }
     // Function to add an Edge
-    void addEdge(String Station_A, String Station_B, int weight){
+    void addEdge(String Station_A, String Station_B, int weight, String connection){
         Integer u = nameToIndex.get(Station_A.toLowerCase());
         Integer v = nameToIndex.get(Station_B.toLowerCase());
 
@@ -77,12 +88,12 @@ public class Weighted_Graph {
         System.out.println("Error: One or both station names are invalid."    + Station_A + ", " + Station_B);
         return;
         }
-        adj.get(u).put(v, weight);
-        adj.get(v).put(u, weight);
+        adj.get(u).put(v, new Edge(weight, connection));
+        adj.get(v).put(u, new Edge(weight, connection));
     }
-    void addEdge(int u, int v, int weight) {
-        this.adj.get(u).put(v, weight);
-        this.adj.get(v).put(u, weight);  // for undirected graph
+    void addEdge(int u, int v, int weight, String connection) {
+        this.adj.get(u).put(v, new Edge(weight, connection));
+        this.adj.get(v).put(u, new Edge(weight, connection));  // for undirected graph
 }
     // Function for printing the whole graph
     void printGraph(){
@@ -91,7 +102,7 @@ public class Weighted_Graph {
             System.out.println("\n " + fromStation + " connects with:");
             
             
-            for (Map.Entry<Integer, Integer> entry : this.adj.get(i).entrySet())
+            for (Map.Entry<Integer, Edge> entry : this.adj.get(i).entrySet())
                 {
                 String toStation = indexToName.getOrDefault(entry.getKey(), "Node " + entry.getKey());
                 System.out.println("\t " + toStation + " with travel time " + entry.getValue()+ " mins");
@@ -127,9 +138,9 @@ public class Weighted_Graph {
 
             if (d > dist[u]) continue;
 
-            for (Map.Entry<Integer, Integer> neighbor : adj.get(u).entrySet()) {
+            for (Map.Entry<Integer, Edge> neighbor : adj.get(u).entrySet()) {
                 int v = neighbor.getKey();
-                int weight = neighbor.getValue();
+                int weight = neighbor.getValue().weight;
                 if (dist[u] + weight < dist[v]) {
                     dist[v] = dist[u] + weight;
                     prev[v] = u;
@@ -157,8 +168,8 @@ public class Weighted_Graph {
         for (int i = 0; i < path.size() -1; i++) {
             int from = path.get(i);
             int to = path.get(i+1);
-            int weight = adj.get(from).get(to);
-            System.out.println(indexToName.get(from) + " -> " + indexToName.get(to)+" ("+ weight +" mins)");
+            Edge edge = adj.get(from).get(to);
+            System.out.println(indexToName.get(from) + " -> " + indexToName.get(to)+" ("+ edge.weight +" mins - "+ edge.line +")");
         }
         System.out.println();
     }
@@ -183,9 +194,9 @@ public class Weighted_Graph {
 
             if (d > dist[u]) continue;
 
-            for (Map.Entry<Integer, Integer> neighbor : adj.get(u).entrySet()) {
+            for (Map.Entry<Integer, Edge> neighbor : adj.get(u).entrySet()) {
                 int v = neighbor.getKey();
-                int weight = neighbor.getValue();
+                int weight = neighbor.getValue().weight;
                 if (dist[u] + weight < dist[v]) {
                     dist[v] = dist[u] + weight;
                     pq.add(new int[]{v, dist[v]});
