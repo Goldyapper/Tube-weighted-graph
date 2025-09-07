@@ -124,6 +124,7 @@ public class Weighted_Graph {
     void dijkstra(int src, int dest) {
         int[] dist = new int[v];
         int[] prev = new int[v];
+        String[] prevLine = new String[v];  //track connections
         Arrays.fill(dist, Integer.MAX_VALUE);
         Arrays.fill(prev, -1);
         dist[src] = 0;
@@ -140,10 +141,11 @@ public class Weighted_Graph {
 
             for (Map.Entry<Integer, Edge> neighbor : adj.get(u).entrySet()) {
                 int v = neighbor.getKey();
-                int weight = neighbor.getValue().weight;
-                if (dist[u] + weight < dist[v]) {
-                    dist[v] = dist[u] + weight;
+                Edge edge = neighbor.getValue();
+                if (dist[u] + edge.weight < dist[v]) {
+                    dist[v] = dist[u] + edge.weight;
                     prev[v] = u;
+                    prevLine[v] = edge.line;
                     pq.add(new int[]{v, dist[v]});
                 }
             }
@@ -156,22 +158,27 @@ public class Weighted_Graph {
             
         // Reconstruct path
         List<Integer> path = new ArrayList<>();
+        List<String> linesUsed = new ArrayList<>();
         for (int at = dest; at != -1; at = prev[at]) {
             path.add(at);
+            if (prev[at] != -1) {
+                linesUsed.add(prevLine[at]);  // record the line for each step
+            }
         }
         Collections.reverse(path);
+        Collections.reverse(linesUsed);
+        Set<String> uniqueLines = new LinkedHashSet<>(linesUsed); // preserve order, remove duplicates
 
         // Print result
-        System.out.println("\nShortest distance from " + indexToName.get(src) + " to " + indexToName.get(dest) + " is: " + dist[dest] + " mins");
-        System.out.println("");
+        System.out.println("\nShortest distance from " + indexToName.get(src) + " to " + indexToName.get(dest) + " is: " + dist[dest] + " mins using the " +String.join(", ", uniqueLines) +" lines(s) \n");
         System.out.println("Path:");
-        for (int i = 0; i < path.size() -1; i++) {
+        for (int i = 0; i < path.size() - 1; i++) {
             int from = path.get(i);
-            int to = path.get(i+1);
-            Edge edge = adj.get(from).get(to);
-            System.out.println(indexToName.get(from) + " -> " + indexToName.get(to)+" ("+ edge.weight +" mins - "+ edge.line +")");
+            int to = path.get(i + 1);
+            Edge e = adj.get(from).get(to);
+            System.out.println(indexToName.get(from) + " -> " + indexToName.get(to) +
+                    " (" + e.weight + " mins - " + e.line + ")");
         }
-        System.out.println();
     }
     void printAllDistancesFrom(String stationName) {
         Integer src = nameToIndex.get(stationName.toLowerCase());
@@ -181,7 +188,10 @@ public class Weighted_Graph {
         }
 
         int[] dist = new int[v];
+        int[] prev = new int[v];
+        String[] prevLine = new String[v];  // store which line was used
         Arrays.fill(dist, Integer.MAX_VALUE);
+        Arrays.fill(prev, -1);
         dist[src] = 0;
 
         PriorityQueue<int[]> pq = new PriorityQueue<>(Comparator.comparingInt(a -> a[1]));
@@ -196,14 +206,16 @@ public class Weighted_Graph {
 
             for (Map.Entry<Integer, Edge> neighbor : adj.get(u).entrySet()) {
                 int v = neighbor.getKey();
-                int weight = neighbor.getValue().weight;
-                if (dist[u] + weight < dist[v]) {
-                    dist[v] = dist[u] + weight;
+                Edge edge = neighbor.getValue();
+                if (dist[u] + edge.weight < dist[v]) {
+                    dist[v] = dist[u] + edge.weight;
+                    prev[v] = u;
+                    prevLine[v] = edge.line; //record connections used
                     pq.add(new int[]{v, dist[v]});
                 }
             }
         }
-         // Collect results for sorting
+        // Collect results for sorting
         List<int[]> reachable = new ArrayList<>();
         List<Integer> unreachable = new ArrayList<>();
 
@@ -219,12 +231,25 @@ public class Weighted_Graph {
         // Sort by travel time
         reachable.sort(Comparator.comparingInt(a -> a[1]));
         System.out.println("\nShortest travel times from " + indexToName.get(src) + ":");
-         // Print reachable stations
+        
+        // Print reachable stations
         for (int[] entry : reachable) {
             int dest = entry[0];
             int time = entry[1];
+            String line = prevLine[dest];
 
-            System.out.println(indexToName.get(dest) + ": " + time + " mins");
+            // Reconstruct the line sequence
+            List<String> connectionsused = new ArrayList<>();
+            for (int at = dest; at != -1; at = prev[at]) {
+                if (prev[at] != -1) {
+                    connectionsused.add(prevLine[at]);
+                }
+            }
+            Collections.reverse(connectionsused);
+            Set<String> uniqueconnections = new LinkedHashSet<>(connectionsused); // preserve order, and remove dupes
+
+
+            System.out.println(indexToName.get(dest) + ": " + time + " mins"  + (uniqueconnections.isEmpty() ? "" : " using the " + String.join(", ", uniqueconnections)) + " Line(s)");
         }
 
         // Print unreachable stations
@@ -258,7 +283,7 @@ public class Weighted_Graph {
 
         while (true) {
             // User input for source node
-            System.out.print("\nEnter a station to see shortest paths to all others or 'skip' to skip: ");
+            System.out.print("\nEnter a station to see shortest distance to all others or 'skip' to skip: ");
             String stationName = scanner.nextLine().trim();
             if (stationName.equalsIgnoreCase("skip")) {
                 // skip straight to normal path finding
