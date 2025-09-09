@@ -236,8 +236,6 @@ public class Weighted_Graph {
         for (int[] entry : reachable) {
             int dest = entry[0];
             int time = entry[1];
-            String line = prevLine[dest];
-
             // Reconstruct the line sequence
             List<String> connectionsused = new ArrayList<>();
             for (int at = dest; at != -1; at = prev[at]) {
@@ -249,7 +247,7 @@ public class Weighted_Graph {
             Set<String> uniqueconnections = new LinkedHashSet<>(connectionsused); // preserve order, and remove dupes
 
 
-            System.out.println(indexToName.get(dest) + ": " + time + " mins"  + (uniqueconnections.isEmpty() ? "" : " using the " + String.join(", ", uniqueconnections)) + " Line(s)");
+            System.out.println(indexToName.get(dest) + ": " + time + " mins"  + (uniqueconnections.isEmpty() ? "" : " via the " + String.join(", ", uniqueconnections)) + " Line(s)");
         }
 
         // Print unreachable stations

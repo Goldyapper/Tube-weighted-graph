@@ -207,7 +207,7 @@ Kilburn, West Hampstead, 2, Jubilee
 West Hampstead, Finchley Road, 2, Jubilee    
 Finchley Road, Swiss Cottage, 1, Jubilee
 Swiss Cottage, St. John's Wood, 2, Jubilee
-St. John's Wood, Baker Street, 2, Jubilee
+St. John's Wood, Baker Street, 3, Jubilee
 Baker Street, Bond Street, 3, Jubilee
 Bond Street, Green Park, 2, Jubilee
 Green Park, Westminster, 2, Jubilee
@@ -230,7 +230,7 @@ King's Cross St Pancras, Euston Square, 2, Metropolitan
 Euston Square, Great Portland Street, 2, Metropolitan
 Great Portland Street, Baker Street, 2, Metropolitan
 Baker Street, Finchley Road, 6, Metropolitan
-Finchley Road, Wembley Park, 7, Metropolitan
+Finchley Road, Wembley Park, 6, Metropolitan
 Wembley Park, Preston Road, 3, Metropolitan
 Preston Road, Northwick Park, 2, Metropolitan
 Northwick Park, Harrow on the Hill, 3, Metropolitan
@@ -254,3 +254,56 @@ Ruislip Manor, Ruislip, 2, Metropolitan
 Ruislip, Ickenham, 3, Metropolitan
 Ickenham, Hillingdon, 2, Metropolitan
 Hillingdon, Uxbridge, 3, Metropolitan
+Morden, South Wimbledon, 2, Northern
+South Wimbledon, Colliers Wood, 2, Northern
+Colliers Wood, Tooting Broadway, 2, Northern
+Tooting Broadway, Tooting Bec, 2, Northern
+Tooting Bec, Balham, 1, Northern
+Balham, Clapham South, 2, Northern
+Clapham South, Clapham Common, 2, Northern
+Clapham Common, Clapham North, 1, Northern
+Clapham North, Stockwell, 1, Northern
+Stockwell, Oval, 2, Northern
+Battersea Power Station, Nine Elms, 2, Northern
+Nine Elms, Kennington, 2, Northern
+Oval, Kennington, 2, Northern
+Kennington, Waterloo, 2, Northern
+Waterloo, Embankment, 2, Northern
+Embankment, Charing Cross, 1, Northern
+Charing Cross, Leicester Square, 1, Northern
+Leicester Square, Tottenham Court Road, 1, Northern
+Tottenham Court Road, Goodge Street, 1, Northern
+Goodge Street, Warren Street, 1, Northern
+Warren Street, Euston, 2, Northern
+Kennington, Elephant & Castle, 1, Northern
+Elephant & Castle, Borough, 2, Northern
+Borough, London Bridge, 2, Northern
+London Bridge, Bank, 1, Northern
+Bank, Moorgate, 2, Northern
+Moorgate, Old Street, 1, Northern
+Old Street, Angel, 2, Northern
+Angel, King's Cross St Pancras, 2, Northern
+King's Cross St Pancras, Euston, 2, Northern
+Euston, Mornington Crescent, 1, Northern
+Mornington Crescent, Camden Town, 2, Northern
+Euston, Camden Town, 3, Northern
+Camden Town, Kentish Town, 2, Northern
+Kentish Town, Tuffnell Park, 2, Northern
+Tuffnell Park, Archway, 2, Northern
+Archway, Highgate, 3, Northern
+Highgate, East Finchley, 2, Northern
+East Finchley, Finchley Central, 4, Northern
+Finchley Central, Mill Hill East, 3, Northern
+Finchley Central, West Finchley, 2, Northern
+West Finchley, Woodside Park, 2, Northern
+Woodside Park, Totteridge & Whetstone, 2, Northern
+Totteridge & Whetstone, High Barnet, 4, Northern
+Camden Town, Chalk Farm, 2, Northern
+Chalk Farm, Belsize Park,2, Northern
+Belsize Park, Hampstead, 2, Northern
+Hampstead, Golders Green, 4, Northern
+Golders Green, Brent Cross, 3, Northern
+Brent Cross, Hendon Central, 2, Northern
+Hendon Central, Colindale, 3, Northern
+Colindale, Burnt Oak, 2, Northern
+Burnt Oak, Edgware, 3, Northern
