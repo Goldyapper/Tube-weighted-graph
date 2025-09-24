@@ -180,7 +180,7 @@ public class Weighted_Graph {
                     " (" + e.weight + " mins - " + e.line + ")");
         }
     }
-    void printAllDistancesFrom(String stationName) {
+    void printAllDistances(String stationName) {
         Integer src = nameToIndex.get(stationName.toLowerCase());
         if (src == null) {
             System.out.println("Error: Station not found - " + stationName);
@@ -262,7 +262,7 @@ public class Weighted_Graph {
         for (int i = 0; i < v; i++) {
             String stationName = indexToName.get(i);
             System.out.println("\n=== Distances from " + stationName + " ===");
-            printAllDistancesFrom(stationName);
+            printAllDistances(stationName);
         }
     }
 
@@ -286,7 +286,7 @@ public class Weighted_Graph {
             if (stationName.equalsIgnoreCase("skip")) {
                 // skip straight to normal path finding
             } else {
-                obj.printAllDistancesFrom(stationName);
+                obj.printAllDistances(stationName);
             }
             //System.out.print("\nStations that you can choose from are only those on the following lines: Bakerloo, Central, Circle, District, Jubilee, Metropolitian");
             System.out.print("\nEnter the source station name (or 'exit' to quit): ");
